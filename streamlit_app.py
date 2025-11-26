@@ -17,14 +17,16 @@ st.set_page_config(
 
 @st.cache_resource
 def get_bq_client():
-    if "gcp_service_account" in st.secrets:
-        from google.oauth2 import service_account
-        credentials = service_account.Credentials.from_service_account_info(
-            st.secrets["gcp_service_account"]
-        )
-        return bigquery.Client(credentials=credentials, project=credentials.project_id)
-    else:
-        return bigquery.Client()
+    try:
+        if "gcp_service_account" in st.secrets:
+            from google.oauth2 import service_account
+            credentials = service_account.Credentials.from_service_account_info(
+                st.secrets["gcp_service_account"]
+            )
+            return bigquery.Client(credentials=credentials, project=credentials.project_id)
+    except FileNotFoundError:
+        pass
+    return bigquery.Client()
 
 client = get_bq_client()
 
