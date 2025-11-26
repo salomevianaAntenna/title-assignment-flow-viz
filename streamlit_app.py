@@ -293,10 +293,10 @@ selected_month = st.sidebar.text_input(
     help="Format: YYYY-MM-DD (e.g., 2025-08-01)"
 )
 
-dataset = st.sidebar.selectbox(
+dataset = st.sidebar.text_input(
     "Dataset",
-    ["bo_title", "salo_epg_eligibility"],
-    index=0
+    value="bo_title",
+    help="Enter dataset name (e.g., bo_title, salo_epg_eligibility)"
 )
 
 selected_title = st.sidebar.text_input(
